@@ -1,0 +1,1 @@
+{"uuid":"7f004720-aa6c-4b68-8d9c-bc96f7225eea","name":"tests.depositetest.setup","children":["d02b4214-bca6-403a-9849-c413799a8aa7"],"description":"","befores":[{"name":"setup","status":"broken","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1786725605076,"stop":1786725605076}],"afters":[],"start":1786725605076,"stop":1786725605076}
