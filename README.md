@@ -1,2 +1,2 @@
 # XYZbank
-Automation testing for banking for admin and customer services 
+Automation testing for banking services for both admin and customers
