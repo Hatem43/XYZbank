@@ -83,14 +83,11 @@ public class Transactionslist extends baseTest {
         Assert.assertTrue(actual);
     }
 
-
-
     @Test(priority = 7)
     public void testresttransaction(){
         login.loginasHermoineGranger("Hermoine Granger");
         transaction.viewtransactions();
-        transaction.transactionslist("Hermoine Granger");
-        boolean actual=transaction.resttransactions("Hermoine Granger");
+        boolean actual=transaction.resttransactions();
         Assert.assertTrue(actual);
     }
 

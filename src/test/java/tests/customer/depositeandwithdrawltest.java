@@ -16,6 +16,7 @@ import utils.ExtentManager;
 
 import java.lang.reflect.Method;
 
+
 public class depositeandwithdrawltest extends baseTest {
 
     loginpage logintest;
@@ -27,7 +28,6 @@ public class depositeandwithdrawltest extends baseTest {
     public void loginsetup(Method method){
         logintest=new loginpage(page);
         logintest.navigatetologinpage();
-        logintest.loginasHermoineGranger("Hermoine Granger");
         deposittest=new Depositandwithdrawl(page);
         extent = ExtentManager.getExtent();
         test = extent.createTest(method.getName());
@@ -35,12 +35,14 @@ public class depositeandwithdrawltest extends baseTest {
 
     @Test
     public void depositTest(){
+        logintest.loginasHermoineGranger("Hermoine Granger");
         int actualamount=deposittest.adddeposite(200);
         Assert.assertEquals(actualamount,5296);
     }
 
     @Test
     public void emptydepositTest(){
+        logintest.loginasHermoineGranger("Hermoine Granger");
         String actualmessage=deposittest.emptydepositeamount();
         System.out.println("the actual message is " +actualmessage);
         Assert.assertEquals(actualmessage,"Please fill out this field.");
@@ -48,16 +50,27 @@ public class depositeandwithdrawltest extends baseTest {
 
     @Test
     public void withdrawlTest(){
+        logintest.loginasHermoineGranger("Hermoine Granger");
         int actualamount=deposittest.withdrawl(200);
         Assert.assertEquals(actualamount,5096);
     }
 
     @Test
     public void emptywithdrawlTest(){
+        logintest.loginasHermoineGranger("Hermoine Granger");
         String actualmessage=deposittest.setWithdrawlempty();
         System.out.println("the actual message is " +actualmessage);
         Assert.assertEquals(actualmessage,"Please fill out this field.");
     }
+
+
+    @Test
+    public void adddepositwithdifferentcutsomer(){
+           logintest.loginasHarryPotter("Harry Potter");
+           int actualbalance=deposittest.adddepositetoharrpoter("Harry Potter",200);
+           Assert.assertEquals(actualbalance,200);
+        }
+
 
     @AfterMethod
     public void logout(ITestResult result) {

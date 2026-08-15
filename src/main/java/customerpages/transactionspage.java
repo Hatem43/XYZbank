@@ -45,10 +45,13 @@ public class transactionspage extends loginpage {
         Locator transactions = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Transactions"));
         transactions.click();
         boolean cont = page.locator(Transactionstable).all().isEmpty();
+        if(cont==true){
+            System.out.println("no transactions found");
+        }
         return cont;
     }
 
-    public boolean resttransactions(String username) {
+    public boolean resttransactions() {
                 Locator resettransactions = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Reset"));
                 resettransactions.click();
                 is_empty = page.locator(Transactionstable).all().isEmpty();
