@@ -30,5 +30,4 @@ public class baseTest {
             playwright.close();
         }
     }
-
 }

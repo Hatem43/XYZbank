@@ -1,17 +1,30 @@
 package tests.customer;
 import base.baseTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import customerpages.loginpage;
+import utils.ExtentManager;
+
+import java.lang.reflect.Method;
 
 public class LoginTest extends baseTest {
 
     public loginpage login;
+    protected ExtentReports extent;
+    protected ExtentTest test;
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void beforeMethod(Method method) {
         login=new loginpage(page);
         login.navigatetologinpage();
+        extent = ExtentManager.getExtent();
+        test = extent.createTest(method.getName());
     }
     
     @Test
@@ -43,15 +56,18 @@ public class LoginTest extends baseTest {
         Assert.assertEquals(actualmessage5,"Neville Longbottom");
     }
 
-    @AfterSuite
-    public void tearDown() {
+    @AfterMethod
+    public void logout(ITestResult result) {
+        Locator logoutbutton=page.getByRole(AriaRole.BUTTON,new Page.GetByRoleOptions().setName("Logout"));
+        logoutbutton.click();
 
-        if (browser!=null){
-            browser.close();
+        if (result.getStatus() == ITestResult.SUCCESS) {
+            test.pass("Test Passed");
+        } else if (result.getStatus() == ITestResult.FAILURE) {
+            test.fail(result.getThrowable());
+        } else {
+            test.skip("Test Skipped");
         }
-
-        if (playwright!=null){
-            playwright.close();
-        }
+        extent.flush();
     }
 }

@@ -1,24 +1,37 @@
 package tests.customer;
 import base.baseTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import customerpages.Depositandwithdrawl;
 import customerpages.loginpage;
+import utils.ExtentManager;
+
+import java.lang.reflect.Method;
 
 public class depositeandwithdrawltest extends baseTest {
 
     loginpage logintest;
     Depositandwithdrawl deposittest;
+    protected ExtentReports extent;
+    protected ExtentTest test;
 
     @BeforeMethod
-    public void loginsetup(){
+    public void loginsetup(Method method){
         logintest=new loginpage(page);
         logintest.navigatetologinpage();
         logintest.loginasHermoineGranger("Hermoine Granger");
         deposittest=new Depositandwithdrawl(page);
+        extent = ExtentManager.getExtent();
+        test = extent.createTest(method.getName());
     }
-
 
     @Test
     public void depositTest(){
@@ -44,5 +57,20 @@ public class depositeandwithdrawltest extends baseTest {
         String actualmessage=deposittest.setWithdrawlempty();
         System.out.println("the actual message is " +actualmessage);
         Assert.assertEquals(actualmessage,"Please fill out this field.");
+    }
+
+    @AfterMethod
+    public void logout(ITestResult result) {
+        Locator logoutbutton=page.getByRole(AriaRole.BUTTON,new Page.GetByRoleOptions().setName("Logout"));
+        logoutbutton.click();
+
+        if (result.getStatus() == ITestResult.SUCCESS) {
+            test.pass("Test Passed");
+        } else if (result.getStatus() == ITestResult.FAILURE) {
+            test.fail(result.getThrowable());
+        } else {
+            test.skip("Test Skipped");
+        }
+        extent.flush();
     }
 }
