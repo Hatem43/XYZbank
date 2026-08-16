@@ -36,7 +36,7 @@ public class depositeandwithdrawltest extends baseTest {
     @Test
     public void depositTest(){
         logintest.loginasHermoineGranger("Hermoine Granger");
-        int actualamount=deposittest.adddeposite(200);
+        int actualamount=deposittest.adddepositetoHermoineGranger(200);
         Assert.assertEquals(actualamount,5296);
     }
 
@@ -63,14 +63,18 @@ public class depositeandwithdrawltest extends baseTest {
         Assert.assertEquals(actualmessage,"Please fill out this field.");
     }
 
-
     @Test
     public void adddepositwithdifferentcutsomer(){
            logintest.loginasHarryPotter("Harry Potter");
-           int actualbalance=deposittest.adddepositetoharrpoter("Harry Potter",200);
+           int actualbalance=deposittest.adddepositetoHarrypoter(200);
            Assert.assertEquals(actualbalance,200);
         }
-
+        @Test
+        public void addwithdrawlemptybalance(){
+         logintest.loginasRonWeasly("Ron Weasly");
+         String actual=deposittest.withdrawlwithemptycutomerbalnce(200);
+         Assert.assertEquals(actual,"Transaction Failed. You can not withdraw amount more than the balance.");
+        }
 
     @AfterMethod
     public void logout(ITestResult result) {

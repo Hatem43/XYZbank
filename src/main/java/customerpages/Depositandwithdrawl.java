@@ -7,14 +7,15 @@ public class Depositandwithdrawl extends loginpage {
 
     String depositnutton = "//button[@type='submit']";
     String withdrawbutton = "//button[normalize-space()='Withdraw']";
-    int depositedbalance=0;
+    int depositedbalance = 0;
+    String errormessage;
 
 
     public Depositandwithdrawl(Page page) {
         super(page);
     }
 
-    public int adddeposite(int amount) {
+    public int adddepositetoHermoineGranger(int amount) {
         Locator balance = page.locator("//div[@class='center']//strong[2]");
         int currentbalance = Integer.parseInt(balance.innerText());
         System.out.println("pervious balance is " + currentbalance);
@@ -73,27 +74,40 @@ public class Depositandwithdrawl extends loginpage {
         return actualmessage;
     }
 
-
-    public int adddepositetoharrpoter(String username, int amount) {
-        if (username == "Harry Potter" || username == "Ron Weasly" || username == "Albus Dumbledore" || username == "Neville Longbottom") {
-            Locator balance = page.locator("//div[@class='center']//strong[2]");
-            int currentbalance = Integer.parseInt(balance.innerText());
-            System.out.println("pervious balance is " + currentbalance);
-            Locator deposit = page.getByText("Deposit", new Page.GetByTextOptions().setExact(true));
-            deposit.click();
-            Locator depositeamount = page.getByPlaceholder("amount");
-            depositeamount.fill(String.valueOf(amount));
-            Locator depositaction = page.locator(depositnutton);
-            depositaction.click();
-            Locator depositesuccessmssg = page.getByText("Deposit Successful", new Page.GetByTextOptions().setExact(true));
-            String successmssg = depositesuccessmssg.innerText();
-            System.out.println("Deposit Successful Message: " + successmssg);
-            depositedbalance= Integer.parseInt(balance.innerText());
-            System.out.println("Current balance is " + depositedbalance);
-        }
+    public int adddepositetoHarrypoter(int amount) {
+        Locator balance = page.locator("//div[@class='center']//strong[2]");
+        int currentbalance = Integer.parseInt(balance.innerText());
+        System.out.println("pervious balance is " + currentbalance);
+        Locator deposit = page.getByText("Deposit", new Page.GetByTextOptions().setExact(true));
+        deposit.click();
+        Locator depositeamount = page.getByPlaceholder("amount");
+        depositeamount.fill(String.valueOf(amount));
+        Locator depositaction = page.locator(depositnutton);
+        depositaction.click();
+        Locator depositesuccessmssg = page.getByText("Deposit Successful", new Page.GetByTextOptions().setExact(true));
+        String successmssg = depositesuccessmssg.innerText();
+        System.out.println("Deposit Successful Message: " + successmssg);
+        depositedbalance = Integer.parseInt(balance.innerText());
+        System.out.println("Current balance is " + depositedbalance);
         return depositedbalance;
     }
 
-
+    public String withdrawlwithemptycutomerbalnce(int amount) {
+        Locator balance = page.locator("//div[@class='center']//strong[2]");
+        int currentbalance = Integer.parseInt(balance.innerText());
+        System.out.println("pervious balance is " + currentbalance);
+        Locator withdrawlbutton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Withdrawl"));
+        withdrawlbutton.click();
+        Locator withdrawnamount = page.getByPlaceholder("amount");
+        withdrawnamount.fill(String.valueOf(amount));
+        Locator submitwithdrawl = page.locator(withdrawbutton);
+        submitwithdrawl.click();
+        if (currentbalance == 0) {
+            Locator withdrawlfailedmessage = page.getByText("Transaction Failed. You can not withdraw amount more than the balance.", new Page.GetByTextOptions().setExact(true));
+            System.out.println("Transaction Failed Message: " + withdrawlfailedmessage.innerText());
+             errormessage= withdrawlfailedmessage.innerText();
+        }
+        return errormessage;
+    }
 }
 

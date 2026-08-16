@@ -55,26 +55,26 @@ public class admintest extends baseTest {
 
     @Test(priority = 2)
     public void deleteaddedcustomerTest(){
-
         options.checkdeletingcustomer();
     }
 
-
     @Test(priority = 3)
-    public void opencustomerdollaraccounttest(){
-
-        account.opendollaraccount("Hermoine Granger","Dollar");
+    public void addemptycustomerdata(){
+        options.addcustomerwithemptydata();
     }
 
     @Test(priority = 4)
-    public void openpoundaccounttest(){
-
-        account.openpoundaccount("Hermoine Granger","Pound");
+    public void opencustomerdollaraccounttest(){
+        account.opendollaraccount("Hermoine Granger","Dollar");
     }
 
     @Test(priority = 5)
-    public void openrupeeaccounttest(){
+    public void openpoundaccounttest(){
+        account.openpoundaccount("Hermoine Granger","Pound");
+    }
 
+    @Test(priority = 6)
+    public void openrupeeaccounttest(){
         account.openrupeeaccount("Hermoine Granger","Rupee");
     }
 

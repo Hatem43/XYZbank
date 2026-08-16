@@ -61,5 +61,14 @@ public class customeroptions extends loginpage {
         boolean isempty=customerresult.innerText().isEmpty();
         return isempty;
     }
+    public String addcustomerwithemptydata(){
+        Locator addcustomer=page.getByText("Add Customer", new Page.GetByTextOptions().setExact(true));
+        addcustomer.click();
+        Locator submitnewcustomer=page.locator(submit);
+        submitnewcustomer.click();
+        Locator firstname=page.getByPlaceholder("First Name");
+        String message = firstname.evaluate("element => element.validationMessage").toString();
+        return message;
+    }
 
 }
