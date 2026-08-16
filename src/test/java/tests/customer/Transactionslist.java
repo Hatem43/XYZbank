@@ -79,7 +79,7 @@ public class Transactionslist extends baseTest {
     @Test
     public void tranactionusingermoinegrangeranddifferentaccountnumber(){
         login.loginasHermoineGranger("Hermoine Granger");
-        boolean actual= transaction.changeAccountnumber(1002);
+        boolean actual= transaction.checktransactionafterchangingAccountnumber(1002);
         Assert.assertTrue(actual);
     }
 
