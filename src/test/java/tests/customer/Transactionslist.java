@@ -33,7 +33,7 @@ public class Transactionslist extends baseTest {
       test = extent.createTest(method.getName());
     }
 
-    @Test
+    @Test(priority = 1)
     public void transactiontesthermoinegranger(){
         login.loginasHermoineGranger("Hermoine Granger");
         String url=transaction.viewtransactions();
@@ -42,7 +42,7 @@ public class Transactionslist extends baseTest {
         Assert.assertEquals(fon,true);
     }
 
-    @Test
+    @Test(priority = 2)
     public void transactiontestHarryPotter(){
         login.loginasHarryPotter("Harry Potter");
         String url=transaction.viewtransactions();
@@ -50,7 +50,7 @@ public class Transactionslist extends baseTest {
         boolean fon= transaction.transactionslist("Harry Potter");
         Assert.assertEquals(fon,false);
 }
-    @Test
+    @Test(priority = 3)
     public void transactiontestRonWeasly(){
         login.loginasRonWeasly("Ron Weasly");
         String url=transaction.viewtransactions();
@@ -58,7 +58,7 @@ public class Transactionslist extends baseTest {
         boolean fon= transaction.transactionslist("Ron Weasly");
         Assert.assertEquals(fon,false);
     }
-    @Test
+    @Test(priority = 4)
     public void transactionAlbusDumbledore(){
         login.loginasRonWeasly("Albus Dumbledore");
         String url=transaction.viewtransactions();
@@ -66,7 +66,7 @@ public class Transactionslist extends baseTest {
         boolean fon= transaction.transactionslist("Albus Dumbledore");
         Assert.assertEquals(fon,false);
     }
-    @Test
+    @Test(priority = 5)
     public void transactionNevilleLongbottom(){
         login.loginasRonWeasly("Neville Longbottom");
         String url=transaction.viewtransactions();
@@ -76,7 +76,7 @@ public class Transactionslist extends baseTest {
     }
 
 
-    @Test
+    @Test(priority = 6)
     public void tranactionusingermoinegrangeranddifferentaccountnumber(){
         login.loginasHermoineGranger("Hermoine Granger");
         boolean actual= transaction.checktransactionafterchangingAccountnumber(1002);
