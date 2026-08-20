@@ -1,0 +1,1 @@
+{"uuid":"80f8b35d-a92f-437c-aead-9dac259dc443","name":"tests.admin.admintest.logout","children":["ac1652ad-c258-449f-8223-3074d496140c"],"description":"","befores":[],"afters":[{"name":"logout","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1787254415697,"stop":1787254415743}],"start":1787254415697,"stop":1787254415743}
