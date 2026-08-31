@@ -1,1 +1,1 @@
-Automation testing for banking services for both admin and customers using Playwright(Java)
+Automation testing using Playwright(Java) for banking services for both admin and customers 
